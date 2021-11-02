@@ -1,4 +1,4 @@
-# 引入CPoint.h头文件，它的内容如下：
+引入CPoint.h头文件，它的内容如下：
 #include <iostream>
 using namespace std;
 class Point{
