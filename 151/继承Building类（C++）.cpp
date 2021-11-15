@@ -1,59 +1,59 @@
-#include "ShapeFactory.h"
-#include <iostream>
-#include <cmath>
+#include "Building.h"
 
-class Triangle : public ShapeFactory{
-    private:
-    float a, b, c;
-    public:
-    Triangle(float a1, float b1,float c1){
-        a = a1;
-        b = b1;
-        c = c1;
+class TeachBuilding : public Building
+{
+private:
+    char function[20];
+
+public:
+    TeachBuilding(char *name, int floor, int room, int area, char *function):Building(name, floor, room, area)
+    {
+        strcpy(this->name, name);
+        this->floor = floor;
+        this->room = room;
+        this->area = area;
+        strcpy(this->function, function);
     }
-    virtual float Circumstance(){
-        return a+b+c;
+    virtual void display()
+    {
+        cout << "Name:" << name << endl;
+        cout << "Floor:" << floor << endl;
+        cout << "Room:" << room << endl;
+        cout << "Area:" << area << endl;
+        cout << "Function:" << function << endl;
     }
 };
 
-class Quadrilateral : public ShapeFactory{
-    private:
-    float a, b, c, d;
-    public:
-    Quadrilateral(float a1, float b1, float c1, float d1){
-        a = a1;
-        b = b1;
-        c = c1;
-        d = d1;
+class DormBuilding : public Building
+{
+private:
+    int peoples;
+
+public:
+    DormBuilding(char *name, int floor, int room, int area, int peoples):Building(name, floor, room, area)
+    {
+        strcpy(this->name, name);
+        this->floor = floor;
+        this->room = room;
+        this->area = area;
+        this->peoples = peoples;
     }
-    virtual float Circumstance(){
-        return a+b+c+d;
+    virtual void display()
+    {
+        cout << "Name:" << name << endl;
+        cout << "Floor:" << floor << endl;
+        cout << "Room:" << room << endl;
+        cout << "Area:" << area << endl;
+        cout << "Peoples:" << peoples << endl;
     }
 };
 
-class Circle : public ShapeFactory{
-    private:
-    float r;
-    public:
-    Circle(float r1){
-        r = r1;
-    }
-    virtual float Circumstance(){
-        return 2*acos(-1)*r;
-    }
-};
-
-ShapeFactory* ShapeFactory::Create(float a, float b, float c){
-    ShapeFactory *p = new Triangle(a, b, c);
-    return p;
+Building *Building::createTeachBuilding(char *name, int floor, int room, int area, char *function)
+{
+    return new TeachBuilding(name, floor, room, area, function);
 }
 
-ShapeFactory* ShapeFactory::Create(float a, float b, float c, float d){
-    ShapeFactory *p = new Quadrilateral(a, b, c, d);
-    return p;
-}
-
-ShapeFactory* ShapeFactory::Create(float r){
-    ShapeFactory *p = new Circle(r);
-    return p;
+Building *Building::creatDormBuilding(char *name, int floor, int room, int area, int peoples)
+{
+    return new DormBuilding(name, floor, room, area, peoples);
 }
